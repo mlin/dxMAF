@@ -1,0 +1,2 @@
+<*.ml{,i}>: pp(ocaml+twt)
+true: package(DXMAF), package(forkwork), thread, debug

@@ -1,0 +1,12 @@
+# OASIS_START
+# DO NOT EDIT (digest: 37dd3444aa746e19d413c98840e3c6e7)
+version = "0.0.1"
+description = "MAF whole-genome alignments on the DNAnexus platform"
+requires = "DNAnexus"
+archive(byte) = "DXMAF.cma"
+archive(byte, plugin) = "DXMAF.cma"
+archive(native) = "DXMAF.cmxa"
+archive(native, plugin) = "DXMAF.cmxs"
+exists_if = "DXMAF.cma"
+# OASIS_STOP
+

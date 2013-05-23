@@ -1,0 +1,29 @@
+OASISFormat: 0.3
+Name:        DXMAF
+Version:     0.0.1
+Synopsis:    MAF whole-genome alignments on the DNAnexus platform
+Authors:     Mike Lin
+License:     MIT
+Plugins:     META (0.3), DevFiles (0.3)
+
+Library "DXMAF"
+  Path:            src
+  BuildTools:      ocamlbuild
+  Modules:         Aln,MAF,DXMAF
+  InternalModules: MAFDefs,KeyValueLexer,KeyValueParser,MAFBlockLexer,MAFBlockParser,TopSort
+  BuildDepends:    DNAnexus
+  CompiledObject:  best
+
+Executable testDXMAF
+  Path:             test
+  BuildTools:       ocamlbuild
+  MainIs:           testDXMAF.ml
+  Install:          false
+  Build$:           flag(tests)
+  BuildDepends:     DXMAF
+  CompiledObject:   best
+
+Test testDXMAF
+  Run$:             flag(tests)
+  Command:          time bash -c 'eval `dx env --bash` &&  _build/test/testDXMAF.native'
+  WorkingDirectory: .

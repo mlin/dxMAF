@@ -1,0 +1,54 @@
+{
+  "name": "maf_importer",
+  "title": "MAF Importer",
+  "summary": "Imports MAF multiple alignments to a GenomicTable indexed by reference genomic range",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "details": {
+    "contactUrl": "http://wiki.dnanexus.com/Apps/maf_importer"
+  },
+  "resources": [],
+  "categories": ["Import"],
+  "inputSpec": [
+    {
+      "name": "maf_files",
+      "label": "Input maf or maf.gz files",
+      "class": "array:file"
+    },
+    {
+      "name": "reference_genome",
+      "label": "Reference genome",
+      "class": "record",
+      "type": "ContigSet"
+    },
+    {
+      "name": "output_name",
+      "label": "Output name",
+      "class": "string",
+      "default": "genome alignments"
+    },
+    {
+      "name": "maxjobs",
+      "class": "int",
+      "default": 10
+    },
+    {
+      "name": "reference_genome_name",
+      "label": "Reference genome name (if different from name of reference_genome object)",
+      "class": "string",
+      "optional": true
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "alignments",
+      "class": "gtable",
+      "type": { "$and": ["gri", "Spans", "maf"] }
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "code": "export OCAMLRUNPARAM=b; /importMAF",
+    "execDepends": []
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "name": "CrossSpeciesAlignments_Longest_Isoforms",
+  "title": "CrossSpeciesAlignments_Longest_Isoforms",
+  "summary": "For each group of overlapping regions in a CrossSpeciesAlignments table, filter out all but the lengthiest alignment",
+  "dxapi": "1.0.0",
+  "version": "0.0.1",
+  "inputSpec": [
+    {
+      "name": "alignments",
+      "class": "gtable",
+      "type": "CrossSpeciesAlignments",
+      "optional": false
+    },
+    {
+      "name": "output_name",
+      "class": "string",
+      "optional": true
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "longest_alignments",
+      "class": "gtable"
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "file": "src/run.sh"
+  }
+}

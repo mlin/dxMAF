@@ -1,0 +1,287 @@
+{
+  "name": "maf_stitcher",
+  "title": "MAF Stitcher",
+  "summary": "Stitch MAF whole-genome alignment blocks into contiguous alignments of transcripts or other intervals",
+  "dxapi": "1.0.0",
+  "version": "0.1.1",
+  "inputSpec": [
+    {
+      "name": "species_set",
+      "label": "Species set",
+      "class": "string",
+      "choices": ["hg19_29mammals", "hg19_33mammals",
+                  "hg19_40tetrapods", "hg19_46vertebrates",
+                  "dm3_12flies", "dm3_15insects"]
+    },
+    {
+      "name": "regions",
+      "label": "Desired transcripts/regions",
+      "class": "gtable",
+      "type": {"$or": ["Genes", "Spans", "gri"]}
+    },
+    {
+      "name": "transcript_type",
+      "label": "\"Transcript\" element type",
+      "class": "string",
+      "default": "transcript",
+      "suggestions": ["transcript", "exon"]
+    },
+    {
+      "name": "exon_type",
+      "label": "\"Exon\" element type",
+      "class": "string",
+      "default": "exon",
+      "suggestions": ["exon", "CDS"]
+    },
+    {
+      "name": "transcripts_per_job",
+      "label": "# transcripts/regions per sub-job",
+      "class": "int",
+      "default": 5000
+    },
+    {
+      "name": "output_name",
+      "label": "Output name",
+      "class": "string",
+      "optional": true
+    },
+    {
+      "name": "no_revcomp",
+      "label": "Don't reverse-complement alignments of (-) strand regions",
+      "class": "boolean",
+      "default": false
+    },
+    {
+      "name": "no_reference_check",
+      "label": "Don't verify that species_set and regions use the same reference genome",
+      "class": "boolean",
+      "default": false
+    },
+    {
+      "name": "spot",
+      "label": "spot",
+      "class": "boolean",
+      "default": false
+    }
+  ],
+  "outputSpec": [
+    {
+      "name": "alignments",
+      "class": "gtable",
+      "type": "CrossSpeciesAlignments"
+    }
+  ],
+  "runSpec": {
+    "interpreter": "bash",
+    "code": "/maf_stitcher"
+  },
+  "details": {
+    "species_sets": {
+      "hg19_29mammals": {
+        "maf": {"$dnanexus_link": "gtable-B4PB620X8Pv0GqQ1Ybp00F2b"},
+        "assemblies": [
+          ["Human","hg19"],
+          ["Chimp","panTro2"],
+          ["Rhesus","rheMac2"],
+          ["Tarsier","tarSyr1"],
+          ["Mouse_lemur","micMur1"],
+          ["Bushbaby","otoGar1"],
+          ["TreeShrew","tupBel1"],
+          ["Mouse","mm9"],
+          ["Rat","rn4"],
+          ["Kangaroo_rat","dipOrd1"],
+          ["Guinea_Pig","cavPor3"],
+          ["Squirrel","speTri1"],
+          ["Rabbit","oryCun2"],
+          ["Pika","ochPri2"],
+          ["Alpaca","vicPac1"],
+          ["Dolphin","turTru1"],
+          ["Cow","bosTau4"],
+          ["Horse","equCab2"],
+          ["Cat","felCat3"],
+          ["Dog","canFam2"],
+          ["Microbat","myoLuc1"],
+          ["Megabat","pteVam1"],
+          ["Hedgehog","eriEur1"],
+          ["Shrew","sorAra1"],
+          ["Elephant","loxAfr3"],
+          ["Rock_hyrax","proCap1"],
+          ["Tenrec","echTel1"],
+          ["Armadillo","dasNov2"],
+          ["Sloth","choHof1"]
+        ]
+      },
+      "hg19_33mammals": {
+        "maf": {"$dnanexus_link": "gtable-B4PB620X8Pv0GqQ1Ybp00F2b"},
+        "assemblies": [
+          ["Human","hg19"],
+          ["Chimp","panTro2"],
+          ["Gorilla","gorGor1"],
+          ["Orangutan","ponAbe2"],
+          ["Rhesus","rheMac2"],
+          ["Baboon","papHam1"],
+          ["Marmoset","calJac1"],
+          ["Tarsier","tarSyr1"],
+          ["Mouse_lemur","micMur1"],
+          ["Bushbaby","otoGar1"],
+          ["TreeShrew","tupBel1"],
+          ["Mouse","mm9"],
+          ["Rat","rn4"],
+          ["Kangaroo_rat","dipOrd1"],
+          ["Guinea_Pig","cavPor3"],
+          ["Squirrel","speTri1"],
+          ["Rabbit","oryCun2"],
+          ["Pika","ochPri2"],
+          ["Alpaca","vicPac1"],
+          ["Dolphin","turTru1"],
+          ["Cow","bosTau4"],
+          ["Horse","equCab2"],
+          ["Cat","felCat3"],
+          ["Dog","canFam2"],
+          ["Microbat","myoLuc1"],
+          ["Megabat","pteVam1"],
+          ["Hedgehog","eriEur1"],
+          ["Shrew","sorAra1"],
+          ["Elephant","loxAfr3"],
+          ["Rock_hyrax","proCap1"],
+          ["Tenrec","echTel1"],
+          ["Armadillo","dasNov2"],
+          ["Sloth","choHof1"]
+        ]
+      },
+      "hg19_40tetrapods": {
+        "maf": {"$dnanexus_link": "gtable-B4PB620X8Pv0GqQ1Ybp00F2b"},
+        "assemblies": [
+          ["Human","hg19"],
+          ["Chimp","panTro2"],
+          ["Gorilla","gorGor1"],
+          ["Orangutan","ponAbe2"],
+          ["Rhesus","rheMac2"],
+          ["Baboon","papHam1"],
+          ["Marmoset","calJac1"],
+          ["Tarsier","tarSyr1"],
+          ["Mouse_lemur","micMur1"],
+          ["Bushbaby","otoGar1"],
+          ["TreeShrew","tupBel1"],
+          ["Mouse","mm9"],
+          ["Rat","rn4"],
+          ["Kangaroo_rat","dipOrd1"],
+          ["Guinea_Pig","cavPor3"],
+          ["Squirrel","speTri1"],
+          ["Rabbit","oryCun2"],
+          ["Pika","ochPri2"],
+          ["Alpaca","vicPac1"],
+          ["Dolphin","turTru1"],
+          ["Cow","bosTau4"],
+          ["Horse","equCab2"],
+          ["Cat","felCat3"],
+          ["Dog","canFam2"],
+          ["Microbat","myoLuc1"],
+          ["Megabat","pteVam1"],
+          ["Hedgehog","eriEur1"],
+          ["Shrew","sorAra1"],
+          ["Elephant","loxAfr3"],
+          ["Rock_hyrax","proCap1"],
+          ["Tenrec","echTel1"],
+          ["Armadillo","dasNov2"],
+          ["Sloth","choHof1"],
+          ["Opossum","monDom5"],
+          ["Wallaby","macEug1"],
+          ["Platypus","ornAna1"],
+          ["Chicken","galGal3"],
+          ["Zebra_finch","taeGut1"],
+          ["Lizard","anoCar1"],
+          ["X_tropicalis","xenTro2"]
+        ]
+      },
+      "hg19_46vertebrates": {
+        "maf": {"$dnanexus_link": "gtable-B4PB620X8Pv0GqQ1Ybp00F2b"},
+        "assemblies": [
+          ["Human","hg19"],
+          ["Chimp","panTro2"],
+          ["Gorilla","gorGor1"],
+          ["Orangutan","ponAbe2"],
+          ["Rhesus","rheMac2"],
+          ["Baboon","papHam1"],
+          ["Marmoset","calJac1"],
+          ["Tarsier","tarSyr1"],
+          ["Mouse_lemur","micMur1"],
+          ["Bushbaby","otoGar1"],
+          ["TreeShrew","tupBel1"],
+          ["Mouse","mm9"],
+          ["Rat","rn4"],
+          ["Kangaroo_rat","dipOrd1"],
+          ["Guinea_Pig","cavPor3"],
+          ["Squirrel","speTri1"],
+          ["Rabbit","oryCun2"],
+          ["Pika","ochPri2"],
+          ["Alpaca","vicPac1"],
+          ["Dolphin","turTru1"],
+          ["Cow","bosTau4"],
+          ["Horse","equCab2"],
+          ["Cat","felCat3"],
+          ["Dog","canFam2"],
+          ["Microbat","myoLuc1"],
+          ["Megabat","pteVam1"],
+          ["Hedgehog","eriEur1"],
+          ["Shrew","sorAra1"],
+          ["Elephant","loxAfr3"],
+          ["Rock_hyrax","proCap1"],
+          ["Tenrec","echTel1"],
+          ["Armadillo","dasNov2"],
+          ["Sloth","choHof1"],
+          ["Opossum","monDom5"],
+          ["Wallaby","macEug1"],
+          ["Platypus","ornAna1"],
+          ["Chicken","galGal3"],
+          ["Zebra_finch","taeGut1"],
+          ["Lizard","anoCar1"],
+          ["X_tropicalis","xenTro2"],
+          ["Tetraodo","tetNig2"],
+          ["Fugu","fr2"],
+          ["Stickleback","gasAcu1"],
+          ["Medaka","oryLat2"],
+          ["Zebrafish","danRer6"],
+          ["Lamprey","petMar1"]
+        ]
+      },
+      "dm3_12flies": {
+        "maf": {"$dnanexus_link": "gtable-B65K8Y0X8Pv4zZ1Yx450040f"},
+        "assemblies": [
+          ["dmel","dm3"],
+          ["dsim","droSim1"],
+          ["dsec","droSec1"],
+          ["dyak","droYak2"],
+          ["dere","droEre2"],
+          ["dana","droAna3"],
+          ["dpse","dp4"],
+          ["dper","droPer1"],
+          ["dwil","droWil1"],
+          ["dvir","droVir3"],
+          ["dmoj","droMoj3"],
+          ["dgri","droGri2"]
+        ]
+      },
+      "dm3_15insects": {
+        "maf": {"$dnanexus_link": "gtable-B65K8Y0X8Pv4zZ1Yx450040f"},
+        "assemblies": [
+          ["dmel","dm3"],
+          ["dsim","droSim1"],
+          ["dsec","droSec1"],
+          ["dyak","droYak2"],
+          ["dere","droEre2"],
+          ["dana","droAna3"],
+          ["dpse","dp4"],
+          ["dper","droPer1"],
+          ["dwil","droWil1"],
+          ["dvir","droVir3"],
+          ["dmoj","droMoj3"],
+          ["dgri","droGri2"],
+          ["agam","anoGam1"],
+          ["amel","apiMel3"],
+          ["tcas","triCas2"]
+        ]
+      }
+    }
+  }
+}

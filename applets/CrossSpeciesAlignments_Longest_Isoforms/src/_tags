@@ -1,0 +1,2 @@
+<*.ml{,i}>: pp(ocaml+twt)
+true: package(Genomics), package(DNAnexus), thread, debug
