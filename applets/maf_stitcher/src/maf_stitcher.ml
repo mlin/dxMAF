@@ -278,17 +278,7 @@ let mainjob input =
               fn
         let subjob_input_file = File.upload_new subjob_input_fn
         (* launch subjob with this input *)
-        let options =
-          if JSON.bool (input$"spot") then
-            J.of_assoc [
-              "systemRequirements", J.of_assoc [
-                "subjob", J.of_assoc [
-                  "instanceType", `String "dx_s_m1.xlarge"
-                ]
-              ]
-            ]
-          else JSON.empty
-        new_job ~options "subjob" (input $+ ("subjob",`String (File.id subjob_input_file)))
+        new_job "subjob" (input $+ ("subjob",`String (File.id subjob_input_file)))
   eprintf "\n"
 
   let finishjob_input =

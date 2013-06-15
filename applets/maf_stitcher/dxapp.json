@@ -3,7 +3,7 @@
   "title": "MAF Stitcher",
   "summary": "Stitch MAF whole-genome alignment blocks into contiguous alignments of transcripts or other intervals",
   "dxapi": "1.0.0",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "inputSpec": [
     {
       "name": "species_set",
@@ -54,12 +54,6 @@
     {
       "name": "no_reference_check",
       "label": "Don't verify that species_set and regions use the same reference genome",
-      "class": "boolean",
-      "default": false
-    },
-    {
-      "name": "spot",
-      "label": "spot",
       "class": "boolean",
       "default": false
     }
