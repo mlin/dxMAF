@@ -15,10 +15,10 @@ module J = struct
 exception TransSplicing of string
 
 module Alignment = struct
-  type t = (string*int*int*bool*GTable.row)
-  let lo (_,x,_,_,_) = x
-  let hi (_,_,x,_,_) = x
-  let len x = (hi x) - (lo x) + 1
+  type t = (string*int*int*int*bool*GTable.row)
+  let lo (_,x,_,_,_,_) = x
+  let hi (_,_,x,_,_,_) = x
+  let exon_len (_,_,_,x,_,_) = x
 
   let re_locus = Str.regexp "\\([^:]+\\):\\([0-9]+\\)-\\([0-9]+\\)(\\(.\\))"
   let of_row row =
@@ -44,7 +44,8 @@ module Alignment = struct
       function
         | (_,_,_,s) when s <> strand -> raise (TransSplicing id)
         | _ -> ()
-    (chrom, lo, (hi-1), strand, row)
+    let exon_len = loci |> List.map (function (_,l,h,_) -> h-l) |> List.fold_left (+) 0
+    (chrom, lo, (hi-1), exon_len, strand, row)
 
 module AlignmentI = IntervalOps.Make(Alignment)
 
@@ -58,8 +59,8 @@ let main input =
   let alignments =
     GTable.iterate_rows alignments_table /@ Alignment.of_row |> Enum.fold
       fun m aln ->
-        let chrom = match aln with (c,_,_,_,_) -> c
-        let strand = match aln with (_,_,_,s,_) -> s
+        let chrom = match aln with (c,_,_,_,_,_) -> c
+        let strand = match aln with (_,_,_,_,s,_) -> s
         let k = (chrom,strand)
         Map.add k (aln :: (try Map.find k m with Not_found -> [])) m
       Map.empty
@@ -78,8 +79,8 @@ let main input =
           fun cluster ->
             List.fold_left
               fun aln1 aln2 ->
-                let l1 = Alignment.len aln1
-                let l2 = Alignment.len aln2
+                let l1 = Alignment.exon_len aln1
+                let l2 = Alignment.exon_len aln2
                 if l1 > l2 then
                   aln1
                 else if l1 < l2 then
@@ -111,7 +112,7 @@ let main input =
   foreach (Map.enum alignments)
     fun (_, lst) ->
       foreach (List.enum lst)
-        fun (_,_,_,_,row) -> GTable.add_row output_gtable (Array.sub row 1 (Array.length row - 1))
+        fun (_,_,_,_,_,row) -> GTable.add_row output_gtable (Array.sub row 1 (Array.length row - 1))
   GTable.flush_rows output_gtable
 
   (* close output GTable *)
