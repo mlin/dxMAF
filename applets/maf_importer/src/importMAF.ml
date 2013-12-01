@@ -185,6 +185,15 @@ let subjob input =
             ForkWork.ChildExn [
               "AppError"; Option.default "" (fst file_link); snd file_link; msg
             ]
+      | Curl.CurlException(_,curlcode,curlmsg) ->
+          raise
+            ForkWork.ChildExn [
+              "AppInternalError";
+              Option.default "" (fst file_link);
+              snd file_link;
+              sprintf "Curl.CurlException(%d,\"%s\")" curlcode curlmsg;
+              Printexc.get_backtrace ()
+            ]
       | exn ->
           raise
             ForkWork.ChildExn [
