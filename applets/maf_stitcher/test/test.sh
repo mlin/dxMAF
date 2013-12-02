@@ -10,7 +10,7 @@ function test_in_project {
   job2=$($dx run :/maf_stitcher -i species_set=dm3_12flies \
           -i regions="MAF whole-genome alignments:/zzz data for testing/tal-AA" \
           -i exon_type=CDS -y --brief)
-  job=$($dx run :/maf_stitcher -i species_set=hg19_33mammals \
+  job=$($dx run :/maf_stitcher -i species_set=hg19_58eutherians \
           -i regions="MAF whole-genome alignments:/zzz data for testing/ccds.hg19.chr21" \
           -i transcripts_per_job=50 -i exon_type=CDS -y --brief)
   curl -sL ftp://ftp.ncbi.nlm.nih.gov/pub/CCDS/archive/Hs103/CCDS_nucleotide.20121025.fna.gz > $HERE/ccds.fna.gz &
