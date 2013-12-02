@@ -48,7 +48,14 @@ Human (hg19) centric, from the [UCSC 46-way alignment](http://hgdownload.soe.ucs
 * ``hg19_29mammals``: the 29 mammals analyzed by [Lindblad-Toh et al. (2011)](http://www.nature.com/nature/journal/v478/n7370/full/nature10530.html)
 * ``hg19_33mammals``: 29 mammals and four additional primates
 * ``hg19_40tetrapods``: human out to *X. tropicalis*
-* ``hg19_46vertebrates``: all 46 vertebrate genomes in the MAF alignment   
+* ``hg19_46vertebrates``: all 46 vertebrate genomes in the MAF alignment  
+
+Human (hg19) centric, from the [UCSC 100-way alignment](http://hgdownload.soe.ucsc.edu/goldenPath/hg19/multiz100way/): 
+
+* ``hg19_58eutherians``: out to & including Armadillo
+* ``hg19_62mammals``: out to & including Platypus
+* ``hg19_83tetrapods``: out to & including X. tropicalis
+* ``hg19_100vertebrates``
 
 *D. melanogaster* (dm3) centric, from the [UCSC 15-way alignment](http://hgdownload.soe.ucsc.edu/goldenPath/dm3/multiz15way/):
 
